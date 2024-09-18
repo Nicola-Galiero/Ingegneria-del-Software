@@ -1,0 +1,867 @@
+\documentclass{article}
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=3cm,right=3cm]{geometry}
+\usepackage{graphicx}
+\usepackage[english,italian]{babel}
+\usepackage{hyperref} % Rende l'indice cliccabile
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\hypersetup{ % Setup dell'aspetto dei link
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\begin{document}
+    \begin{center}
+        \includegraphics[width=5cm]{logo_parthenope.png}
+    \end{center}
+
+    \begin{center}
+        \LARGE{\textbf{UNIVERSITÀ DEGLI STUDI DI NAPOLI PARTHENOPE}}
+        \vspace{3mm}
+        \\ \normalsize{DIPARTIMENTO DI SCIENZE E TECNOLOGIE}
+        \\ \normalsize{CORSO DI INGEGNERIA DEL SOFTWARE E INTERAZIONE UOMO-MACCHINA}
+    \end{center}
+
+    \vspace{8mm}
+
+    \begin{center}
+        \LARGE{\textbf{ENNESHOES}}
+    \end{center}
+
+    \begin{center}
+        \\ \normalsize{E-COMMERCE PER LA VENDITA DI SNEAKERS}
+        \vspace{2cm}
+        \item \textbf{Documento di analisi dei requisiti}
+    \end{center}
+
+    \vspace{20mm}
+
+    \begin{flushleft}
+      \LARGE{\textbf{DOCENTI\hspace{7cm}CANDIDATI}} 
+    \end{flushleft}
+    
+    \vspace{5mm}
+
+    \begin{flushleft}
+        {\fontsize{15}{14}\selectfont Paola Barra\hspace{6.5cm}Viscillo Nicola 0124002557}
+    \end{flushleft}
+    \begin{flushleft}
+        {\fontsize{15}{14}\selectfont Mariacarla Staffa\hspace{5.4cm}Galiero Nicola  0124002671}
+    \end{flushleft}
+
+    \vspace{15mm}
+
+    \begin{center}
+      \LARGE{\textbf{Anno accademico 2023 - 2024}}  
+    \end{center}
+
+    \newpage
+
+    \pagenumbering{arabic}
+    \tableofcontents
+    \newpage
+    
+    \section{Introduzione}
+    
+    \item L'obiettivo del nostro e-commerce ENNESHOES è rendere il più facile possibile la visualizzazione, la selezione e l'acquisto di sneakers.
+    \item Abbiamo diviso il progetto in due differenti siti web:
+        \begin{itemize}
+            \item \href{https://my-ecommerce-front-chi.vercel.app/}{Sito front-end};
+            \item  \href{https://my-ecommerce-admin-five.vercel.app/}{Sito back-end}.
+        \end{itemize}
+    \item \textit{[Per accedere ai siti corrispondenti, è sufficiente passare con il cursore sui termini "front-end" e "back-end" e cliccarci sopra.]}
+    \item Il sistema offre una piattaforma completa per la vendita online di sneakers, inclusa la gestione del catalogo, l'elaborazione degli ordini, la gestione degli utenti e l'elaborazione dei pagamenti.
+    \item Gli \textbf{utenti} possono accedere al sito front-end visualizzando le proprie sneakers preferite.
+    \item Gli \textbf{admin} gestiscono il sito back-end, garantendo facile navigabilità tra le sneakers offerte.
+    \item I prodotti, come le categorie, gli ordini, le recensioni, etc. sono gestite in un database.
+    
+    \newpage
+    
+    \section{Sistema proposto}
+    
+    \subsection{Panoramica}
+    
+    \item Gli obiettivi per il sito front-end sono:
+    \begin{itemize}
+        \item Fornire l'accesso agli utenti;
+        \item Offrire un'esperienza di navigazione semplice ed intuitiva;
+        \item Proporre la gestione del proprio account;
+        \item Offrire un processo di pagamento facile mediante l'utilizzo dell'API "Stripe".
+    \end{itemize}
+    \item Gli obiettivi per il sito back-end sono:
+    \begin{itemize}
+        \item Incrementare la produttività degli admin;
+        \item Assicurare la sicurezza;
+        \item Promuovere la collaborazione tra admin;
+        \item Aggiornare rapidamente il prodotto in evidenza;
+        \item Gestire con efficienza ed efficacia il database.
+    \end{itemize}
+    \subsection{Requisiti funzionali}
+    \subsubsection{Requisiti funzionali per il sito front-end}
+    \item \textcolor{blue}{RF1 - Autenticazione utente}: il sistema deve consentire all'utente di poter accedere al sito front-end utilizzando il pulsante "Login with Google".
+    \vspace{2mm}
+    \item \textcolor{blue}{RF2 - Gestione account}: l'utente deve poter modificare le informazioni del proprio account (nome e cognome, email, indirizzo di spedizione).
+    \vspace{2mm}
+    \item \textcolor{blue}{RF3 - Ricerca prodotto}: il sistema deve permettere all'utente di cercare un prodotto tramite il nome o la marca.
+    \vspace{2mm}
+    \item \textcolor{blue}{RF4 - Carrello acquisti}: l'utente deve poter aggiungere un prodotto al proprio carrello e visualizzarne il contenuto in qualsiasi momento.
+    \vspace{2mm}
+    \item \textcolor{blue}{RF5 - Checkout}: il sistema deve guidare l'utente attraverso il processo di checkout, richiedendo le informazioni necessarie per la spedizione e il pagamento.
+    \vspace{2mm}
+    \item \textcolor{blue}{RF6 - Wishlist e ordini precedenti}: l'utente deve poter visualizzare la wishlist e gli ordini effettuati in precedenza.
+    \vspace{2mm}
+    \item \textcolor{blue}{RF7 - Recensioni}: l'utente deve poter lasciare una recensione basata sul numero di stelle (da 1 a 5), un titolo e un'eventuale recensione scritta.
+    
+    \subsubsection{Requisiti funzionali per il sito back-end}
+    \item \textcolor{blue}{RF1 - Autenticazione admin}: il sistema deve consentire all'admin di poter accedere al sito back-end utilizzando il pulsante "Login with Google".
+    \vspace{2mm}
+    \item \textcolor{blue}{RF2 - Gestione admin}: l'admin deve poter modificare, aggiungendo o eliminando un nuovo admin dal sistema.
+    \vspace{2mm}
+    \item \textcolor{blue}{RF3 - Inserimento prodotto}: l'admin deve poter inserire un nuovo prodotto.
+    \vspace{2mm}
+    \item \textcolor{blue}{RF4 - Inserimento categoria}: l'admin deve poter inserire una nuova categoria.
+    \vspace{2mm}
+    \item \textcolor{blue}{RF5 - Gestione ordini}: l'admin deve poter gestire gli ordini visualizzando la data di acquisto, lo stato del pagamento, informazioni dell'acquirente e il/i prodotto/i acquistato/i.
+    \vspace{2mm}
+    \item \textcolor{blue}{RF6 - Visualizzazione ordini e guadagni}: l’admin deve essere in grado di visualizzare il numero di ordini e i guadagni del giorno, della settimana e del mese corrente.
+    
+    \subsection{Requisiti non funzionali}
+    \item \textcolor{blue}{RNF1 - Usabilità}: il sistema deve consentire all'utente e all'admin di poter accedere, rispettivamente, al sito front-end e al sito back-end utilizzando il pulsante "Login with Google".
+    \vspace{2mm}
+    \item \textcolor{blue}{RNF2 - Affidabilità}: tutte le informazioni personali degli utenti (nome e cognome, email, indirizzo di spedizione) vengono custodite in modo sicuro in un database e vengono visualizzate solo dall'admin.
+    \vspace{2mm}
+    \item \textcolor{blue}{RNF3 - Prestazioni}: il sistema deve essere in grado di gestire massimo 100 utenti registrati senza compromettere le prestazioni.
+    \vspace{2mm}
+    \item \textcolor{blue}{RNF4 - Compatibilità}: il sistema deve essere compatibile con i principali browser web (Chrome, Firefox, Safari, Edge) e dispositivi (computer, tablet, dispositivi mobili).
+    \vspace{2mm}
+    \item \textcolor{blue}{RNF5 - Manutenibilità}: il codice sorgente è documentato in modo accurato e segue le linee guida per lo sviluppo sicuro del software in maniera tale da facilitarne la manutenzione futura.
+
+    \subsection{Modelli del sistema}
+
+    \subsubsection{Utenti del sistema (descrizione degli utenti, dei ruoli e del contesto di utilizzo)}
+    
+    \item Gli \textbf{utenti} possono accedere al sito front-end effettuando la registrazione mediante l'utilizzo della propria email. Utilizzando l'API di Google, nota come "Google Authenticator". Una volta effettuato l'accesso, gli utenti sono in grado di:
+    \begin{itemize}
+        \item Visualizzare il prodotto in primo piano;
+        \item Esplorare l'intera gamma di sneakers disponibili;
+        \item Applicare filtri per marca e taglia per migliorare la ricerca;
+        \item Ordinare le sneakers in base al prezzo in ordine crescente, decrescente o in base alla data di inserimento;
+        \item Gestire il proprio account apportando modifiche a nome, cognome, email e indirizzo di spedizione;
+        \item Aggiungere prodotti alla wishlist o procedere all'acquisto diretto;
+        \item Esaminare la propria wishlist o il carrello, con la possibilità di regolare la quantità di prodotti e il totale finale;
+        \item Visualizzare lo storico degli ordini effettuati;
+        \item Selezionare il metodo di pagamento desiderato.
+    \end{itemize}
+    \item Gli \textbf{admin} accedono al sito back-end mediante l'utilizzo dell'API di Google. Ciascun admin ha la capacità di:
+    \begin{itemize}
+        \item Esaminare la dashboard;
+        \item Effettuare modifiche o aggiungere nuovi prodotti al database;
+        \item Modificare o introdurre nuove categorie di prodotti;
+        \item Consultare gli ordini effettuati dagli utenti;
+        \item Aggiungere altri amministratori al sistema;
+        \item Impostare il prodotto in evidenza.
+    \end{itemize}
+
+    \subsubsection{Scenari}
+
+    \paragraph{Scenario 1}
+    \item \textcolor{blue}{ATTORE: ADMIN}
+    
+    \vspace{0.5cm}
+
+    \item \textcolor{blue}{Flusso di eventi}:
+    \begin{enumerate}
+        \item L'admin, responsabile del sistema, accede al sito back-end utilizzando la funzione  "Login with Google";
+        \item L'admin, una volta effettuato l'accesso, visualizza la dashboard con due contatori: ordini e guadagno. I contatori mostrano i dati giornalieri, settimanali e mensili.
+        \item Inserisce dei nuovi prodotti rispettando sei parametri: nome, categoria, taglia, foto, descrizione e prezzo;
+        \item L’admin crea una nuova categoria se il prodotto da inserire non ne ha una. Poi inserisce la scarpa precedente. Se invece la scarpa ha già una categoria, l’admin la inserisce direttamente.
+    \end{enumerate}
+
+    \paragraph{Scenario 2}
+    \item \textcolor{blue}{ATTORE: UTENTE}
+    
+    \vspace{0.5cm}
+
+    \item \textcolor{blue}{Flusso di eventi}:
+    \begin{enumerate}
+        \item L'utente accede al sito front-end utilizzando la funzione "Login with Google";
+        \item L'utente, una volta effettuato l'accesso, visualizza la pagina principale, denominata "Home", che mostra il prodotto in evidenza e i nuovi arrivi;
+        \item Qualora la scarpa desiderata non fosse presente nella sezione "Home", l'utente procede a cercarla nella sezione "Products". Poiché questa pagina elenca tutte le scarpe senza un ordine specifico, l'utente può effettuare la ricerca del prodotto di interesse digitandone il nome o cercandolo nella sezione "Categories";
+        \item Una volta individuato il prodotto desiderato, l'utente ha la possibilità di aggiungerlo alla lista dei desideri (wishlist) o al carrello per l'acquisto; 
+        \item Successivamente, per completare l'acquisto, l'utente deve inserire i dati relativi alla spedizione e al pagamento;
+        \item Se l’utente è soddisfatto della scarpa, può lasciare una recensione.
+    \end{enumerate}
+    
+    \newpage
+    \subsubsection{Modello casi d’uso}
+    
+    \begin{center}
+        \includegraphics[width=1\linewidth]{useCase.png}
+        \item Diagramma Use Case
+    \end{center}
+    
+    \vspace{5mm}
+    \item Di seguito, i diagrammi del descrittore:
+    \vspace{5mm}
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{EFFETTUA AUTENTICAZIONE}\\
+            \hline
+            &\\
+            Attori partecipanti: & Admin, Utente\\
+            &\\
+            Condizioni d'ingresso: & L'Admin e l'Utente si recano sulla pagina web\\
+            &\\
+            Flusso di eventi: & L'Admin e l'Utente si recano sulla pagina web, rispettivamente \\
+            &sulla pagina back-end e front-end, inserendo il proprio account \\
+            &Google \\
+            &\\
+            Condizioni di uscita: & Le autenticazioni sono riuscite con successo\\
+           \end{tabular}
+    \end{flushleft}
+
+    \vspace{2mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{RICERCA PRODOTTO}\\
+            \hline
+            &\\
+            Attori partecipanti: & Utente\\
+            &\\
+            Condizioni d'ingresso: & L'utente ha accesso al sito web\\
+            &\\
+            Flusso di eventi: & L'utente, accedendo al sito front, visualizzerà il prodotto in evidenza\\
+            &e i nuovi arrivi.\\
+            &L'utente può ricercare il prodotto nella sezione Products, dove\\ &sono presenti tutti i prodotti.\\
+            &L'utente può ricercare il prodotto nella sezione Categories, dove\\
+            &sono catalogate per marca.\\
+            &L'utente può ricercare il prodotto cliccando sulla lente di\\ &ingrandimento, dove i risultati saranno dati incrociando il nome\\ &inserito con quelli presenti nel database\\
+            &\\
+            Condizioni di uscita: & L'utente visualizza i risultati della ricerca del prodotto in base \\
+            &alle relative sezioni\\
+            &\\
+        \end{tabular}
+    \end{flushleft}
+
+    \vspace{2mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{AGGIUNGE PRODOTTO NEL CARRELLO}\\
+            \hline
+            &\\
+            Attori partecipanti: & Utente\\
+            &\\
+            Condizioni d'ingresso: & L'utente ha accesso al sito web\\
+            &\\
+            Flusso di eventi: & L'utente, accedendo al sito front, visualizzerà il prodotto e lo\\
+            &inserirà nel carrello cliccando sul pulsante "Add to cart"\\
+            &\\
+            Condizioni di uscita: & L'utente ha inserito il prodotto nel carrello\\
+            &\\
+        \end{tabular}
+    \end{flushleft}
+    
+    \vspace{2mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{AGGIUNGE PRODOTTO NELLA WISHLIST}\\
+            \hline
+            &\\
+            Attori partecipanti & Utente\\
+            &\\
+            Condizioni d'ingresso & L'utente deve essere loggato al sito front\\
+            &\\
+            Flusso di eventi & L'utente, accedendo al sito front, visualizzerà il prodotto e lo\\
+            &inserirà nella wishlist cliccando sull'icona del cuore\\
+            &\\
+            Condizioni di uscita & L'utente ha inserito il prodotto nella wishlist\\
+            &\\
+        \end{tabular}
+    \end{flushleft}
+
+    \vspace{2mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{EFFETTUA PAGAMENTO}\\
+            \hline
+            &\\
+            Attori partecipanti: & Utente\\
+            &\\
+            Condizioni d'ingresso: & L'utente deve essere loggato al sito front\\
+            &\\
+            Flusso di eventi: & L'utente, accedendo al sito front, visualizzerà il carrello e procederà \\
+            &all'acquisto, cliccando sul pulsante "Continue to payment".\\
+            & Successivamente, dovrà inserire gli estremi di una carta di credito.
+            &\\
+            Condizioni di uscita: & L'utente ha effettuato il pagamento con successo\\
+            CODICE SCONTO
+            &\\
+        \end{tabular}
+    \end{flushleft}
+
+    \vspace{2mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{AGGIUNGE RECENSIONE}\\
+            \hline
+            &\\
+            Attori partecipanti: & Utente\\
+            &\\
+            Condizioni d'ingresso: & L'utente ha accesso al sito web\\
+            &\\
+            Flusso di eventi: & L'utente, accedendo al sito front, può accedere alla pagina di un \\
+            &prodotto e può inserire una recensione\\
+            &\\
+            Condizioni di uscita: & L'utente ha rilasciato una recensione al prodotto\\
+            &\\
+        \end{tabular}
+    \end{flushleft}
+
+    \vspace{2mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{GESTISCE ADMIN}\\
+            \hline
+            &\\
+            Attori partecipanti: & Admin\\
+            &\\
+            Condizioni d'ingresso: & L'admin deve essere loggato al sito back\\
+            &\\
+            Flusso di eventi: & L'admin clicca sulla sezione "Admins"\\
+            &\\
+            Condizioni di uscita: & L'admin visualizza tutti gli admin del sistema\\
+            &\\
+        \end{tabular}
+    \end{flushleft}
+
+    \vspace{2mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{AGGIUNGE ADMIN}\\
+            \hline
+            &\\
+            Attori partecipanti: & Admin\\
+            &\\
+            Condizioni d'ingresso: & L'admin deve essere loggato al sito back\\
+            &\\
+            Flusso di eventi: & L'admin inserisce l'email del nuovo admin e clicca \\
+            &sul pulsante "Add admin"\\
+            &\\
+            Condizioni di uscita: & L'admin aggiunge con successo un nuovo admin\\
+            &\\
+        \end{tabular}
+    \end{flushleft}
+
+    \vspace{2mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{RIMUOVE ADMIN}\\
+            \hline
+            &\\
+            Attori partecipanti: & Admin\\
+            &\\
+            Condizioni d'ingresso: & L'admin deve esere loggato al sito back\\
+            &\\
+            Flusso di eventi: & L'admin deve cliccare il bottone "Delete" dell'admin che vuole rimuovere\\
+            &\\
+            Condizioni di uscita: & L'admin rimuove con successo un admin\\
+            &\\
+        \end{tabular}
+    \end{flushleft}
+
+    \vspace{2mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{GESTISCE PRODOTTO}\\
+            \hline
+            &\\
+            Attori partecipanti: & Admin\\
+            &\\
+            Condizioni d'ingresso: & L'admin deve essere loggato al sito back\\
+            &\\
+            Flusso di eventi: & L'admin clicca sulla sezione "Products"\\
+            &\\
+            Condizioni di uscita: & L'admin visualizza tutti i prodotti presenti nel database\\
+            &\\
+        \end{tabular}
+    \end{flushleft}
+
+    \vspace{2mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{AGGIUNGE PRODOTTO}\\
+            \hline
+            &\\
+            Attori partecipanti: & Admin\\
+            &\\
+            Condizioni d'ingresso: & L'admin deve essere loggato al sito back\\
+            &\\
+            Flusso di eventi: & L'admin clicca sul pulsante "Add product".\\
+            &Successivamente, l'admin inserisce il nome, la categoria, l'immagine, \\
+            &la descrizione ed il prezzo del prodotto. \\
+            &Dopodiché clicca sul pulsante "Save" per salvare i dati inseriti
+            &\\
+            Condizioni di uscita: & L'admin aggiunge il prodotto con successo\\
+            &\\
+        \end{tabular}
+    \end{flushleft}
+
+    \vspace{2mm}
+    
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{MODIFICA PRODOTTO}\\
+            \hline
+            &\\
+            Attori partecipanti: & Admin\\
+            &\\
+            Condizioni d'ingresso: & L'admin deve essere loggato al sito back\\
+            &\\
+            Flusso di eventi: & L'admin sceglie il prodotto da modificare e successivamente clicca \\
+            &sul pulsante "Edit".\\
+            &Dopodiché effettua le opportune modifiche e clicca sul pulsante \\
+            &"Save" per salvare\\
+            &\\
+            Condizioni di uscita: & L'admin modifica il prodotto con successo\\
+            &\\
+        \end{tabular}
+    \end{flushleft}
+
+    \vspace{2mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{RIMUOVE PRODOTTO}\\
+            \hline
+            &\\
+            Attori partecipanti: & Admin\\
+            &\\
+            Condizioni d'ingresso: & L'admin deve essere loggato al sito back\\
+            &\\
+            Flusso di eventi: & L'admin sceglie il prodotto da rimuovere e successivamente \\
+            &clicca sul pulsante "Delete"
+            &\\
+            Condizioni di uscita: & L'admin rimuove il prodotto con successo \\
+            &\\
+        \end{tabular}
+    \end{flushleft}
+
+    \vspace{2mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{GESTISCE CATEGORIA}\\
+            \hline
+            &\\
+            Attori partecipanti: & Admin\\
+            &\\
+            Condizioni d'ingresso: & L’admin deve essere loggato al sito back\\
+            &\\
+            Flusso di eventi: & L’admin clicca sulla sezione ”Categories” \\
+            &\\
+            Condizioni di uscita: & L'admin visualizza tutte le categorie\\
+            &\\
+        \end{tabular}
+    \end{flushleft}
+
+    \vspace{2mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{AGGIUNGE CATEGORIA}\\
+            \hline
+            &\\
+            Attori partecipanti: & Admin\\
+            &\\
+            Condizioni d'ingresso: & L’admin deve essere loggato al sito back\\
+            &\\
+            Flusso di eventi: & L'admin deve digitare il nome di una nuova categoria, \\
+            &eventualmente aggiungere delle proprietà(es. numero e \\
+            &colore). Successivamente, deve cliccare sul tasto "Save"\\
+            &\\
+            Condizioni di uscita: & L'admin aggiunge la categoria con successo\\
+            &\\
+        \end{tabular}
+    \end{flushleft}
+
+    \vspace{2mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{MODIFICA CATEGORIA}\\
+            \hline
+            &\\
+            Attori partecipanti: & Admin\\
+            &\\
+            Condizioni d'ingresso: & L’admin deve essere loggato al sito back\\
+            &\\
+            Flusso di eventi: & L'admin deve cliccare sul tasto "Edit" della categoria \\
+            & che si vuole modificare. Successivamente, si possono\\
+            &  modificare il nome e le proprietà della categoria selezionata\\
+            &\\
+            Condizioni di uscita: & L'admin modifica la categoria con successo\\
+            &\\
+        \end{tabular}
+    \end{flushleft}
+
+    \vspace{2mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{RIMUOVE CATEGORIA}\\
+            \hline
+            &\\
+            Attori partecipanti: & Admin\\
+            &\\
+            Condizioni d'ingresso: & L’admin deve essere loggato al sito back\\
+            &\\
+            Flusso di eventi: & L'admin deve cliccare sul tasto "Delete"\\
+            &della categoria scelta per poterla rimuovere dal\\ &sistema\\
+            &\\
+            Condizioni di uscita: & L'admin rimuove la categoria con successo\\
+            &\\
+        \end{tabular}
+    \end{flushleft}
+
+    \vspace{2mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{NOME CASO D'USO:} & \textbf{VISUALIZZA ORDINI E GUADAGNI}\\
+            \hline
+            &\\
+            Attori partecipanti: & Admin\\
+            &\\
+            Condizioni d'ingresso: & L’admin deve essere loggato al sito back\\
+            &\\
+            Flusso di eventi: & L'admin, dopo esser loggato al sito back, accede alla "Dashboard", \\
+            &nella quale visualizza il numero di ordini e guagagni giornalieri, \\
+            &settimanali e mensili\\
+            &\\
+            Condizioni di uscita: & L'admin visualizza con successo i dettagli relativi agli ordini e ai \\
+            &guadagni\\
+            &\\
+        \end{tabular}
+    \end{flushleft}
+
+
+    \newpage
+    \subsubsection{Modello ad oggetti}
+
+    \item Il modello ad oggetti è un metodo per progettare e rappresentare i dati e le operazioni in un sistema.
+
+     \paragraph{Diagrammi delle classi}
+
+    \begin{center}
+        \includegraphics[width=15cm]{DiagrammaClassi_front.png}
+        \vspace{5mm}
+        \item Diagramma delle classi sito front  
+    \end{center}
+    \vspace{5mm}
+    \begin{center}
+        \includegraphics[width=15cm]{diagramma_classi_admin.png}
+        \vspace{5mm}
+        \item Diagramma delle classi sito admin
+    \end{center}
+    
+
+
+
+    \newpage
+    \paragraph{Dizionario dei dati}
+    \item Il dizionario dei dati è implementato tramite la tecnica di Abbott per l'identificazione degli oggetti, e di conseguenza dei dati.
+    \vspace{2mm}
+    \item \textbf{Dizionario dei dati - sito front-end}
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{ENTITY} & \textbf{}\\
+            \hline
+            &\\
+            General User & Utente che ha appena eseguito l'accesso al sito \\
+            &\\
+            Client & Utente che ha effettuato l'accesso al proprio account mediante Google Authenticator \\
+            &\\
+            User &  Utente che non ha effettuato l'accesso all'account \\
+            &\\
+            Wishlist & Lista personalizzata di prodotti che si desiderano acquistare in futuro\\
+            &\\
+            Cart & Carrello contenente i prodotti da acquistare\\
+            &\\
+            Order & Ordine effettuato dal cliente \\
+            &\\
+            Products & Prodotti presenti nel database \\
+            &\\
+            Categoris & Categorie presenti nel database \\
+            &\\
+           \end{tabular}
+    \end{flushleft}
+
+    \vspace{3mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{BOUNDARY} & \textbf{}\\
+            \hline
+            &\\
+            Account & E' la pagina che consente all'utente di effettuare il login \\
+            &\\
+            Wishlist Page & E' la pagina che contiene la wishlist \\
+            &\\
+            Cart Page & E' la pagina che permette di effettuare il pagamento \\
+            &\\
+            Products Page & E’ la pagina dove sono contenuti i prodotti \\
+            &\\
+            Categories Page & E’ la pagina contenente le categorie (marche)  \\
+            &\\
+            Order Page & E' la pagina che permette di visualizzare gli ordini effettuati \\
+           \end{tabular}
+    \end{flushleft}
+
+    \vspace{3mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{CONTROL} & \textbf{}\\
+            \hline
+            &\\
+            Google Authenticator (sign-up) & API che controlla se un utente ha eseguito correttamente l'accesso \\
+            &tramite la propria email\\
+            &\\
+            Control Wishlist & Controlla l'inserimento o la rimozione di un prodotto nella wishlist \\ 
+            &\\
+            Control Cart & Controlla l'inserimento o la rimozione di un prodotto nel carrello \\ 
+            &\\
+            Control Products & Controlla la corretta visualizzazione di un prodotto \\
+            &\\
+            Control Categories & Controlla la corretta visualizzazione di una categoria \\
+            &\\
+            Control Order & Controlla lo stato dell'ordine \\
+            &\\
+           \end{tabular}
+    \end{flushleft}
+\newpage
+    \item \textbf{Dizionario dei dati - sito back-end}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{ENTITY} & \textbf{}\\
+            \hline
+            &\\
+            Admin & Gestisce il sito back-and\\
+            &\\
+            Product & Prodotto presente o da inserire nel database\\
+            &\\
+            Admin & Admin che vengono inseriti dall'admin principale \\
+            &\\
+            Order & Ordine effettuato dal cliente sul sito front\\
+            &\\
+            Category & Categoria presente o da inserire nel database\\
+           \end{tabular}
+    \end{flushleft}
+
+    \vspace{3mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{BOUNDARY} & \textbf{}\\
+            \hline
+            &\\
+            Products page & E' la pagina dove sono contenuti i prodotti\\
+            &\\
+            Admin page & E' la pagina dove si possono inserire o rimuovere gli admin\\
+            &\\
+            Order page & E' la pagina dove sono presenti tutti gli ordini effettuati dai clienti dal sito front\\
+            &\\
+            Category page & E' la pagina contenente le categorie (marche)\\
+            &\\
+            Login button & E' il tasto per effettuare l'accesso tramite l'API di Google\\
+           \end{tabular}
+    \end{flushleft}
+
+    \vspace{3mm}
+
+    \begin{flushleft}
+        \begin{tabular}{l|l}
+            \textbf{CONTROL} & \textbf{}\\
+            \hline
+            &\\
+            Control Product & Controlla l'inserimento o la rimozione di un prodotto nel database\\
+            &\\
+            Control Admin& Controlla l'inserimento o la rimozione di un admin dal sistema\\
+            &\\
+            Control Order& Controlla gli ordini effettuati dai clienti dal sito front\\
+            &\\
+            Control Category& Controlla l'inserimento o la rimozione di una categoria dal database\\
+            &\\
+            Google Authenticator(sign-up)& API che controlla se un utente ha eseguito correttamente l'accesso \\
+            &tramite la propria email\\
+            &\\
+           \end{tabular}
+    \end{flushleft}
+
+    \newpage
+   
+    \subsubsection{Modelli dinamici}
+    \item I modelli dinamici vengono utilizzati per rappresentare dinamicamente i nostri siti web (front-end e back-end).
+    
+    \item \textbf{Diagramma delle sequenze}
+
+    \begin{center}
+        \includegraphics[width=17cm]{diagrammaSequenzeFront.png}
+        \item Diagramma delle sequenze, sito front-end
+        
+        \vspace{3cm}
+
+        \includegraphics[width=17cm]{diagrammaSequenzeFront.png}
+        \item Diagramma delle sequenze, sito back-end
+    \end{center}
+    
+
+
+    \newpage
+    \item \textbf{Diagramma degli stati}
+    \item Il diagramma degli stati serve per rappresentare il comportamento dinamico di un oggetto, di un'entità o di un sistema in risposta agli eventi esterni.
+    
+    \begin{center}
+        \includegraphics[width=13cm, height=15cm]{diagramma stati frotn.png}
+        \item Diagramma degli stati, sito front-end
+
+        \vspace{2cm}
+
+        \includegraphics[width=17cm, height=7cm]{diagramma stati back.png}
+        \item Diagramma degli stati, sito back-end
+    \end{center}
+    
+    \newpage
+    \section{Interfaccia utente}
+    
+    \subsection{Realizzazione del prototipo}
+    \begin{itemize}
+        \item Scopo: il nostro prototipo occupa una posizione centrale nel concetto di "ruolo, interfaccia e implementazione", in quanto esso è in grado di:
+        \begin{itemize}
+            \item Esplorare il ruolo del prodotto nella vita dell'utente, permettendo di valutare se è in grado di soddisfare le sue esigenze;
+            \item Sperimentare l'esperienza d'uso del prodotto, concentrandosi sull'interfaccia utente e sull'interazione;
+            \item Sperimentare tecniche e componenti usati nella realizzazione del prodotto, consentendo così di valutare l'efficacia delle scelte tecniche.
+        \end{itemize}
+        \begin{center}
+            \includegraphics[width=6cm]{prototipo.png}
+        \end{center}
+        
+        \item Modalità d'uso: il prototipo è interattivo in quanto l'utente può utilizzare la nostra web app, navigando fra le schermate ed effettuando diverse operazioni;
+        
+        \item Fedeltà: il prototipo è di "alta fedeltà" poiché assomiglia in tutti gli aspetti al prodotto finale;
+
+        \item Durata: il prototipo è evolutivo poiché il prodotto proposto è in costante evoluzione fino alla versione finale;
+        
+        \item Completezza funzionale: il prototipo ha un orientamento verticale, infatti consente all'utente di valutare l'interfaccia nel suo complesso, e di comprendere l'interazione con essa attraverso lo sviluppo realistico di alcune funzionalità del sistema.
+    \end{itemize}
+
+    \newpage
+    \section{Mock-up}
+    
+    \subsection{Sito front-end}
+    \begin{center}
+        \includegraphics[width=15cm]{Mock-up/home.png}
+        \item \textbf{Home}
+
+        \vspace{1.5cm}
+
+        \includegraphics[width=15cm]{Mock-up/account.png}
+        \item \textbf{Account}
+
+        \vspace{1.5cm}
+
+        \includegraphics[width=15cm]{Mock-up/cart.png}
+        \item \textbf{Cart}
+    \end{center}
+
+    \vspace{1.5cm}
+    
+    \subsection{Sito back-end}
+    \begin{center}
+        \includegraphics[width=15cm]{Mock-up/dashboard.png}
+        \item \textbf{Dashboard}
+
+        \vspace{1.5cm}
+
+        \includegraphics[width=15cm]{Mock-up/products.png}
+        \item \textbf{Products}
+
+        \vspace{1.5cm}
+
+        \includegraphics[width=15cm]{Mock-up/categories.png}
+        \item \textbf{Categories}
+
+        \vspace{1.5cm}
+
+        \includegraphics[width=15cm]{Mock-up/orders.png}
+        \item \textbf{Orders}
+
+        \vspace{1.5cm}
+
+        \includegraphics[width=15cm]{Mock-up/admins.png}
+        \item \textbf{Admins}
+    \end{center}
+
+    \newpage
+    \section{Valutazioni Euristiche di usabilità}
+    \begin{enumerate}
+        \item \textbf{Visibilità dello stato del sistema}: gli utenti ricevono dei feedback immediati sulle loro azioni, come ad esempio un messaggio di conferma quando completano un'ordine. Ciò aiuta l'utente a capire cosa sta accadendo;
+        \item \textbf{Corrispondenza fra il mondo reale ed il sistema}: l'utente si interfaccia con un sistema che utilizza termini familiari piuttosto che termini orientati al sistema;
+        \item \textbf{Libertà e controllo da parte degli utenti}: il sistema fornisce all'utente opzioni di annullamento, modifica e ritorno alle varie pagine;
+        \item \textbf{Consistenza e standard}: il sistema utilizza un design semplice ed intuitivo così facendo, si evitano ambiguità per l'utente; 
+        \item \textbf{Prevenzione degli errori}: il sistema è stato progettato per evitare che gli utenti commettano errori. Ad esempio, durante il processo di acquisto, l'utente viene guidato passo passo affinché eviti di commettere errori. Prima di confermare un acquisto, il sistema consente all'utente di controllare i dati inseriti così da correggerli in caso di errore;
+        \item \textbf{Riconoscere piuttosto che ricordare}: l'utente non ha bisogno di far ricorso alla memoria in quanto il sistema utilizza icone per diverse funzionalità che sono facilmente riconoscibili. Ad esempio, il simbolo del carrello è facilmente ricondubile alla fase di acquisto;
+        \item \textbf{Flessibilità ed efficienza d'uso}: il nostro sistema è stato progettato per garantire un'interazione semplice ed intuitiva per ogni utente; infatti, non è stato inserito alcun tipo di scorciatoia per l'utente esperto;
+        \item \textbf{Design minimalista ed estetico}: il sistema utilizza un design pulito, evitando informazioni irrilevanti o non nocessarie, così da evitare di sovraccaricare l'utente;
+        \item \textbf{Aiutare gli utenti a riconoscere gli errori, diagnosticarli e correggerli}: i messaggi di errore sono espressi in linguaggio semplice, senza utilizzare codici;
+        \item \textbf{Guida e documentazione}: il sistema è utilizzabile senza documentazione.
+    \end{enumerate}
+
+    \newpage
+    \section{Test di usabilità}
+    \begin{itemize}
+        \item \underline{Obiettivo dei test}: valutare l'esperienza d'uso, la semplicità e la chiarezza dell'applicazione da parte degli utenti;
+        \item \underline{Metodologia usata}: a questo test hanno partecipato 20 persone, le quali conoscevano, inizialmente, il sistema solo grazie ad una panoramica generale che gli è stata fornita. I compiti di questo test erano quelli di far provare tutte le funzionalità principali del sistema all'utente e ricavare le difficoltà riscontrate;
+        \item \underline{Sintesi delle misure}:
+            \begin{center}
+                \includegraphics[width=12cm]{Test/1.png}
+                \includegraphics[width=12cm]{Test/2.png}
+                \includegraphics[width=12cm]{Test/3.png}
+                \includegraphics[width=12cm]{Test/4.png}
+                \includegraphics[width=12cm]{Test/5.png}
+            \end{center}
+    \end{itemize}
+
+    \newpage
+    \section{Valutazione dell'usabilità}
+    \begin{center}
+        \includegraphics[width=13cm]{Test/6.png}
+    \end{center}
+    
+
+\end{document}

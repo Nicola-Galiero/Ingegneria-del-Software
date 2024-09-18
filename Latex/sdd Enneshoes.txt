@@ -1,0 +1,133 @@
+\documentclass{article}
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=3cm,right=3cm]{geometry}
+\usepackage{graphicx}
+\usepackage[english,italian]{babel}
+\usepackage{hyperref} % Rende l'indice cliccabile
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\hypersetup{ % Setup dell'aspetto dei link
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\begin{document}
+    \begin{center}
+        \includegraphics[width=5cm]{logo_parthenope.png}
+    \end{center}
+
+    \begin{center}
+        \LARGE{\textbf{UNIVERSITÀ DEGLI STUDI DI NAPOLI PARTHENOPE}}
+        \vspace{3mm}
+        \\ \normalsize{DIPARTIMENTO DI SCIENZE E TECNOLOGIE}
+        \\ \normalsize{CORSO DI INGEGNERIA DEL SOFTWARE E INTERAZIONE UOMO-MACCHINA}
+    \end{center}
+
+    \vspace{8mm}
+
+    \begin{center}
+        \LARGE{\textbf{ENNESHOES}}
+    \end{center}
+
+    \begin{center}
+        \\ \normalsize{E-COMMERCE PER LA VENDITA DI SNEAKERS}
+    \end{center}
+
+    \vspace{20mm}
+
+    \begin{flushleft}
+      \LARGE{\textbf{DOCENTI\hspace{7cm}CANDIDATI}} 
+    \end{flushleft}
+    
+    \vspace{5mm}
+
+    \begin{flushleft}
+        {\fontsize{15}{14}\selectfont Paola Barra\hspace{6.5cm}Viscillo Nicola 0124002557}
+    \end{flushleft}
+    \begin{flushleft}
+        {\fontsize{15}{14}\selectfont Mariacarla Staffa\hspace{5.4cm}Galiero Nicola  0124002671}
+    \end{flushleft}
+
+    \vspace{15mm}
+
+    \begin{center}
+      \LARGE{\textbf{Anno accademico 2023 - 2024}}  
+    \end{center}
+
+    \newpage
+
+    \pagenumbering{arabic}
+    \tableofcontents
+
+    \newpage
+
+\section{Introduzione}
+    \subsection{Scopo del sistema}
+        \item Il nostro sito web ha lo scopo di offrire una facile interazione tra l'interfaccia proposta (\href{https://my-ecommerce-front-chi.vercel.app/%7D%7B}{Click qui per andare sul nostro sito!}) e il cliente che vuole acquistare le proprie sneakers preferite.
+        \vspace{2mm}
+        \item ENNESHOES permette di acquistare con totale semplicità le sneakers, offrendo un servizio di ricerca facile ed intuibile.
+        \vspace{2mm}
+        \item La progettazione del sito ENNESHOES ha come obiettivo rendere il sistema, complessivamente, più chiaro possibile, potendo dare la possibilità di visualizzare e acquistare scarpe ad un pubblico che va dalla persona meno esperta, alla persona abile nell'uso dei siti web e specialmente con gli e-commerce.
+    \subsection{Obiettivi di progettazione}
+        \item Gli obiettivi del nostro progetto sono:
+        \begin{itemize}
+            \item \textbf{Interfaccia utente intuitiva}: il nostro progetto è stato creato cercando di fornire all'utente un'interfaccia "pulita";
+            \item \textbf{Flusso di navigazione logico}: l'utente può facilmente raggiungere la parte del sito con pochissimi click, senza creare confusione;
+            \item \textbf{Feedback utente}: l'utente meno esperto, con delle facili animazioni,(esempio spostamento della scarpa selezionata nel carrello, riempimento del "cuore" quando si seleziona una scarpa per inserirla nella wishlist), può comprendere al meglio l'azione compiuta;
+            \item \textbf{Riduzione del clutter}: cercando di ridurre i dettagli e opzioni, rendendo meno ingombrante, semplificandone la navigazione.
+            \item \textbf{Supporto per diverse piattaforme}: essendo una Progressive Web App, il nostro sito web si adatta a tutti i dispositivi, come computer, smartphone e tablet, e a tutti i tipi di browser web, come Google, Opera, Firefox, ecc.
+            
+        \end{itemize}
+    
+\newpage
+    \subsection{Panoramica}
+    \begin{center}
+\includegraphics[width=15cm]{Mock-up/home.png}
+        \item \textbf{Home}
+
+        \vspace{1.5cm}
+
+        \includegraphics[width=15cm]{Mock-up/account.png}
+        \item \textbf{Account}
+
+        \vspace{1.5cm}
+
+        \includegraphics[width=15cm]{Mock-up/cart.png}
+        \item \textbf{Cart}    \end{center}
+\vspace{2cm}
+\newpage
+\section{Sistema proposto}
+    \subsection{Panoramica}
+        \item Il sistema proposto è basato sul modello architetturale "Client-Server". La componente "Client" è rappresentata dal sito Front-end, dove si possono acquistare le sneakers, mentre la componente "Server" è rappresentato dal sito Back-end.
+        \item Sia nel sito Front-end sia nel sito Back-end sono stati sviluppati dei sistemi automatici, tramite API, per consentire, rispettivamente: 
+        \begin{itemize}
+            \item l'acquisto: tramite l'API "Stripe" (API che consente di creare metodi di pagamento virtuali);
+            \item l'autenticazione: tramite l'API "Google Authenticator" ( API che gestisce gli accessi con il proprio account Google).
+        \end{itemize} 
+    \item Nel sistema si fa uso di database, tramite MongoDB. Nel database vengono gestiti:
+    \begin{center}
+        \includegraphics[width=10cm]{gestione.png}
+    \end{center}
+    
+    \subsection{Gestione dei dati persistenti}
+        \item I dati persistenti, come gli ordini effettuati dagli utenti, i pagamenti, i prodotti e le categorie, sono visualizzabili nel sito Back-end, ma sono gestiti nel database "MongoDB".
+        \item Questa scelta è stata fatta in quanto era il metodo più efficace per potere connettere il nostro sistema (sviluppato in Javascript) e un altro Database. Questi sono i motivi per cui è stato scelto MongoDB per la gestione dei dati persistenti:
+        \begin{itemize}
+            \item \textbf{Affidabilità}: MongoDB offre funzionalità di replica e failover per garantire l'affidabilità e la disponibilità dei dati, riducendo al minimo il rischio di perdita di dati.
+            \item \textbf{Facilità di Utilizzo}: MongoDB utilizza un modello di dati flessibile basato su documenti JSON, che è più intuitivo per molti sviluppatori rispetto ai database relazionali.
+            \item \textbf{Accessibilità}: si può accedere a questo database da qualsiasi dispositivo, senza dover rispettare gli indirizzi IP.
+        \end{itemize}
+
+    \subsection{Condizioni limite}
+    \begin{itemize}
+        \item \textbf{Quantità di prodotto negativa}: l'utente che cerca di inserire una quantità negativa di un prodotto nel carrello rappresenta un'azione inusuale e non prevista dal normale flusso delle operazioni;
+        \item \textbf{Nessun metodo di pagamento disponibile}: l'API "Stripe" consente di effettuare il pagamento con qualsiasi tipologia di carta, poiché si tratta di un metodo di pagamento "fittizio";
+        \item \textbf{Modifica del carrello durante il processo di pagamento}: nel momento in cui subentra il metodo di pagamento "Stripe", il carrello viene temporaneamente bloccato, finché non si ritorna sulla pagina del carrello;
+        \item \textbf{Indirizzo di spedizione non valido}: gli indirizzi di spedizione non possono mai risultare sbagliati, in quanto per garantire l'esperienza per l'utente, non c'è un meccanismo di controllo degli indirizzi.
+    \end{itemize}
+\end{document}
